@@ -6,7 +6,7 @@ association_table = db.Table(
     "association_table",
     db.Model.metadata,
     db.Column("tutor_id", db.Integer, db.ForeignKey("tutors.id")),
-    db.Column("user_id", db.Integer, db.ForeignKey("students.id"))
+    db.Column("user_id", db.Integer, db.ForeignKey("student.id"))
 )
 
 class Tutor(db.Model):
@@ -77,7 +77,7 @@ class Student(db.Model):
     bio = db.Column(db.String, nullable = False)
     budget = db.Column(db.Integer, nullable = False)
     subjects = db.Column(db.String, nullable = False) #make this a string list
-    tutors = db.relationship("Tutor", secondary=association_table, back_populate="students")
+    tutors = db.relationship("Tutor", secondary=association_table, back_populates="students")
 
     def __init__(self,**kwargs):
         """
