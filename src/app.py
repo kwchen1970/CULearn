@@ -75,6 +75,16 @@ def get_tutor_by_id(tutor_id):
         return failure_response("Tutor not found")
     return success_response(tutor.serialize())
 
+@app.route("/api/students/<int:tutor_id>/")
+def get_students_of_tutor(tutor_id):
+    """
+    Endpoint for getting all the students of the tutor
+    """
+    tutor = Tutor.query.filter_by(id=tutor_id).first()
+    if tutor is None:
+        return failure_response("Tutor not found")
+    return success_response({"students": [s.simple_serialize() for s in tutor.students]})
+
 @app.route("/api/tutors/<int:tutor_id>/", methods=["DELETE"])
 def delete_tutor(tutor_id):
     """
