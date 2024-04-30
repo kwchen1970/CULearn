@@ -92,9 +92,37 @@ def get_all_students():
     """
     get all students
     """
-    return success_response({"courses": [t.serialize() for t in Student.query.all()]})
+    return success_response({"students": [t.serialize() for t in Student.query.all()]})
 
-app.route("/api/students/<int:student_id>/")
+@app.route("/api/students/", methods=["POST"])
+def create_student():
+    """
+    create a student
+    """
+    body = json.loads(request.data)
+    name = body.get("name")
+    username = body.get("username")
+    password = body.get("password")
+    profile_img = body.get("profile_img")
+    bio = body.get("bio","")
+    budget = body.get("budget")
+    subjects = body.get("subjects")
+    if username is None or password is None or profile_img is None or bio is None or budget is None or subjects is None or name is None:
+        return failure_response("Invalid input", 400)
+    new_student = Student(
+        name = name,
+        username = username,
+        password = password,
+        profile_img = profile_img,
+        bio = bio,
+        budget = budget,
+        subjects = subjects
+    )
+    db.session.add(new_student)
+    db.session.commit()
+    return success_response(new_student.serialize(),201)
+
+@app.route("/api/students/<int:student_id>/")
 def get_student_by_id(student_id):
     """
     get specific students
@@ -104,7 +132,7 @@ def get_student_by_id(student_id):
         return failure_response("student not found")
     return success_response(student.serialize())
 
-app.route("/api/students/<int:student_id>/", methods = ["DELETE"])
+@app.route("/api/students/<int:student_id>/", methods = ["DELETE"])
 def delete_student(student_id):
     """
     delete a student
@@ -115,25 +143,6 @@ def delete_student(student_id):
     db.session.delete(student)
     db.session.commit()
     return success_response(student.serialize())
-
-app.route("/api/students/", methods = ["POST"])
-def create_student():
-    """
-    create a student
-    """
-    body = json.loads(request.data)
-    new_student = Student(
-        name = body.get("name"),
-        username = body.get("username"),
-        password = body.get("password"),
-        profile_img = body.get("profile_img"),
-        bio = body.get("bio",""),
-        budget = body.get("budget"),
-        subjects = body.get("subjects")
-    )
-    db.session.add(new_student)
-    db.session.commit()
-    return success_response(new_student.serialize(),201)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000, debug=True)

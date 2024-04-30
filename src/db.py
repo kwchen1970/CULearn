@@ -75,8 +75,8 @@ class Student(db.Model):
     password = db.Column(db.String, nullable = False)
     profile_img = db.Column(db.String, nullable = False)
     bio = db.Column(db.String, nullable = False)
-    budget = db.Column(db.Integer, nullable = False)
-    subjects = db.Column(db.String, nullable = False) #make this a string list
+    budget = db.Column(db.Float, nullable = False)
+    subjects = db.Column(db.String, nullable = False)
     tutors = db.relationship("Tutor", secondary=association_table, back_populates="students")
 
     def __init__(self,**kwargs):
@@ -88,7 +88,7 @@ class Student(db.Model):
         self.password = kwargs.get("password","")
         self.profile_img = kwargs.get("profile_img","")
         self.bio = kwargs.get("bio","")
-        self.budget = kwargs.get("budget","")
+        self.budget = kwargs.get("budget")
         self.subjects = kwargs.get("subjects","")
     
     def serialize(self):
