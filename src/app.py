@@ -163,6 +163,26 @@ def delete_student(student_id):
     db.session.delete(student)
     db.session.commit()
     return success_response(student.serialize())
+@app.route("/api/student/fortutor/<int:tutor_id>/", methods = ["POST"])
+def add_student_totutor(tutor_id):
+    """
+    Adds a student to a tutor
+    """
+    tutor = Tutor.query.filter_by(id = tutor_id).first()
+    if tutor is None:
+        return failure_response("Tutor not found")
+    body = json.loads(request.data)
+    student_id = body.get("student_id")
+    student = Student.query.filter_by(id = student_id).first()
+    if student is None:
+        return failure_response("student not found")
+    else:
+        tutor.students.append(student)
+    db.session.commit()
+    return success_response(student.serialize())
+
+
+    
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000, debug=True)
