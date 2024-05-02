@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+    demo:
+      image: adelynnwu/hc24
+      ports:
+          - "80:8000"

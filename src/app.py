@@ -26,6 +26,9 @@ def failure_response(message, code=404):
     return json.dumps({"error": message}), code
 
 @app.route("/")
+def base():
+    return "hello world"
+
 @app.route("/api/tutors/")
 def get_all_tutors():
     """
@@ -164,7 +167,7 @@ def delete_student(student_id):
     db.session.commit()
     return success_response(student.serialize())
 
-@app.route("/api/student/fortutor/<int:tutor_id>/", methods = ["POST"])
+@app.route("/api/students/to/tutor/<int:tutor_id>/", methods = ["POST"])
 def add_student_to_tutor(tutor_id):
     """
     Adds a student to a tutor
@@ -181,9 +184,6 @@ def add_student_to_tutor(tutor_id):
         tutor.students.append(student)
     db.session.commit()
     return success_response(student.serialize())
-
-
-    
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000, debug=True)
