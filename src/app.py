@@ -163,8 +163,9 @@ def delete_student(student_id):
     db.session.delete(student)
     db.session.commit()
     return success_response(student.serialize())
+
 @app.route("/api/student/fortutor/<int:tutor_id>/", methods = ["POST"])
-def add_student_totutor(tutor_id):
+def add_student_to_tutor(tutor_id):
     """
     Adds a student to a tutor
     """
