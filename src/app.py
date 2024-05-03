@@ -185,7 +185,7 @@ def add_student_to_tutor(tutor_id):
     db.session.commit()
     return success_response(student.serialize())
 
-@app.route("/api/tutor/authentication/")
+@app.route("/api/tutor/authentication/", methods=["POST"])
 def get_tutor_password():
     username = json.loads(request.data).get("username")
     tutor = Tutor.query.filter_by(username = username).first()
@@ -193,7 +193,7 @@ def get_tutor_password():
         return failure_response("User not found", 404)
     return success_response(tutor.fetch_tutor_pw())
 
-@app.route("/api/student/authentication/")
+@app.route("/api/student/authentication/", methods=["POST"])
 def get_student_password():
     username = json.loads(request.data).get("username")
     student = Student.query.filter_by(username = username).first()
