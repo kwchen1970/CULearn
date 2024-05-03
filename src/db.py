@@ -67,6 +67,14 @@ class Tutor(db.Model):
             "subjects": self.subjects
         }
     
+    def fetch_tutor_pw(self):
+        """
+        Return the password of the tutor
+        """
+        return {
+            "password": self.password
+        }
+    
 class Student(db.Model):
     __tablename__ = "student"
     id = db.Column(db.Integer, primary_key = True, autoincrement = True)
@@ -114,4 +122,12 @@ class Student(db.Model):
             "bio":self.bio,
             "budget":self.budget,
             "subjects":self.subjects
+        }
+    
+    def fetch_student_pw(self):
+        """
+        Return the password of the tutor
+        """
+        return {
+            "password": self.password
         }
