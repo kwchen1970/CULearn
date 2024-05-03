@@ -24,6 +24,7 @@ class Tutor(db.Model):
     availability = db.Column(db.String, nullable=False)
     students = db.relationship("Student", secondary=association_table, back_populates="tutors")
     subjects = db.Column(db.String, nullable=False)
+    ratings = db.relationship("Rating", cascade="delete")
 
     def __init__(self, **kwargs):
         """
@@ -50,7 +51,8 @@ class Tutor(db.Model):
             "price": self.price,
             "availability": self.availability,
             "subjects": self.subjects,
-            "students": [s.serialize() for s in self.students]
+            "students": [s.serialize() for s in self.students],
+            "ratings": [r.serialize() for r in self.ratings]
         }
     
     def simple_serialize(self):
@@ -131,3 +133,33 @@ class Student(db.Model):
         return {
             "password": self.password
         }
+
+    
+class Rating(db.Model):
+    __tablename__ = "rating"
+    id = db.Column(db.Integer, primary_key = True, autoincrement = True)
+    comment = db.Column(db.String, nullable = False)
+    rating = db.Column(db.Float, nullable = False)
+    student_id = db.Column(db.Integer, nullable = False)
+    tutor_id = db.Column(db.Integer, db.ForeignKey("tutors.id"), nullable=False)
+
+    def __init__(self,**kwargs):
+        """
+        Initialize a Rating object
+        """
+        self.comment = kwargs.get("comment","")
+        self.rating = kwargs.get("rating",0.0)
+        self.student_id = kwargs.get("student_id","")
+        self.tutor_id = kwargs.get("tutor_id","")
+
+    def serialize(self):
+        """
+        Serialize ratings
+        """
+        return {
+            "id": self.id,
+            "tutor_id": self.tutor_id, 
+            "comment": self.comment,
+            "student_id": self.student_id
+        }
+    

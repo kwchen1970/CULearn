@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 import json
 import time
 
-from db import db, Tutor, Student
+from db import db, Tutor, Student, Rating
 from flask import Flask, request
 
 app = Flask(__name__)
@@ -200,6 +200,28 @@ def get_student_password():
     if student == None:
         return failure_response("User not found", 404)
     return success_response(student.fetch_student_pw())
+
+@app.route("/api/tutors/ratings/<int:student_id>/", methods=["POST"])
+def add_rating(student_id):
+    student = Student.query.filter_by(id = student_id).first()
+    if student is None:
+        return failure_response("student not found")
+    body = json.loads(request.data)
+    comment = body.get("comment")
+    rating = body.get("rating")
+    tutor_id = body.get("tutor_id")
+    tutor = Tutor.query.filter_by(id = tutor_id).first()
+    if tutor is None:
+        return failure_response("tutor not found")
+    new_rating = Rating(
+        comment = comment,
+        rating = rating,
+         tutor_id = tutor_id,
+        student_id = student_id
+    )
+    db.session.add(new_rating)
+    db.session.commit()
+    return success_response(new_rating.serialize(), 201)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000, debug=True)
