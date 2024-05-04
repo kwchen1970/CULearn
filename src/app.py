@@ -35,7 +35,8 @@ def get_all_tutors():
     Endpoint for getting all tutors
     """
     tutors = []
-    return success_response({"tutors": [t.serialize() for t in Tutor.query.all()]})
+    # return success_response({"tutors": [t.serialize() for t in Tutor.query.all()]})
+    return success_response([t.serialize() for t in Tutor.query.all()])
 
 @app.route("/api/tutors/", methods=["POST"])
 def create_tutor():
@@ -86,7 +87,8 @@ def get_students_of_tutor(tutor_id):
     tutor = Tutor.query.filter_by(id=tutor_id).first()
     if tutor is None:
         return failure_response("Tutor not found")
-    return success_response({"students": [s.simple_serialize() for s in tutor.students]})
+    #return success_response({"students": [s.simple_serialize() for s in tutor.students]})
+    return success_response([s.simple_serialize() for s in tutor.students])
 
 @app.route("/api/tutors/<int:tutor_id>/", methods=["DELETE"])
 def delete_tutor(tutor_id):
@@ -105,7 +107,8 @@ def get_all_students():
     """
     get all students
     """
-    return success_response({"students": [t.serialize() for t in Student.query.all()]})
+    #return success_response({"students": [t.serialize() for t in Student.query.all()]})
+    return success_response([t.serialize() for t in Student.query.all()])
 
 @app.route("/api/students/", methods=["POST"])
 def create_student():
@@ -153,7 +156,8 @@ def get_tutors_of_student(student_id):
     student = Student.query.filter_by(id=student_id).first()
     if student is None:
         return failure_response("Tutor not found")
-    return success_response({"tutors": [t.simple_serialize() for t in student.tutors]})
+    #return success_response({"tutors": [t.simple_serialize() for t in student.tutors]})
+    return success_response([t.simple_serialize() for t in student.tutors])
 
 @app.route("/api/students/<int:student_id>/", methods = ["DELETE"])
 def delete_student(student_id):

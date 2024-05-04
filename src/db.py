@@ -47,11 +47,12 @@ class Tutor(db.Model):
             "id": self.id,
             "username": self.username,
             "name": self.name,
+            "password": self.password,
             "bio": self.bio,
+            "profile_img": self.profile_img,
             "price": self.price,
             "availability": self.availability,
             "subjects": self.subjects,
-            "students": [s.serialize() for s in self.students],
             "ratings": [r.serialize() for r in self.ratings]
         }
     
