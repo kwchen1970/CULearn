@@ -5,6 +5,7 @@ time availability, price, subjects, and more. The database implemented in this a
 ## Screenshots
 <img width="600" alt="Screenshot 2024-05-04 at 11 15 58 PM" src="https://github.com/kwchen1970/HackChallenge24/assets/145308966/25e167bc-44ef-43c8-b860-97e530ddcbdb">
 
+<img width="685" alt="Screenshot 2024-05-04 at 11 18 43 PM" src="https://github.com/kwchen1970/HackChallenge24/assets/145308966/9518c749-8a61-48c8-b6f0-4667869fe28b">
 
 
 
