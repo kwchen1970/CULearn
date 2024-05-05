@@ -4,8 +4,11 @@ time availability, price, subjects, and more. The database implemented in this a
 
 ## Screenshots
 
+
 ## Links
 [Backend Repo](https://github.com/kwchen1970/HackChallenge24)
+
+[App Presentation](https://www.youtube.com/watch?v=1jWZXXmy4w4)
 
 [Figma](https://www.figma.com/file/mQn58fEYC4vIOk8DLGcu6z/Mid-fi's-for-Hack-Challenge-SP24?type=design&node-id=0-1&mode=design)
 
@@ -13,6 +16,7 @@ time availability, price, subjects, and more. The database implemented in this a
 - Two database models using SQL Alchemy
 - Many to Many relationship table
 - One to Many relationship table
+- Login authentication
 - Endpoint routes using Postman
 - Deployed using Docker
 
