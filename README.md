@@ -3,7 +3,7 @@ Backend for CULearn, a app to help connect students to tutors at Cornell Univers
 time availability, price, subjects, and more. The database implemented in this app allows for students to connect with tutors and vice versa once they are matched together. 
 
 ## Screenshots
-
+![file](https://github.com/kwchen1970/HackChallenge24/assets/145308966/ebf8fbcf-efec-4cff-904d-cddd24ab6bc7)
 
 ## Links
 [Backend Repo](https://github.com/kwchen1970/HackChallenge24)
